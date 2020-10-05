@@ -1,5 +1,5 @@
 This document provides a list of all known issues with MongooseIM operation and configuration.
-You may also find proposed workarounds if any is available.
+You may also find proposed workarounds if any are available.
 
 ## Missing MUC Light room config fields with RDBMS backend
 
@@ -14,18 +14,22 @@ You have to iterate over all rooms in the DB (`muc_light_rooms` table) and add m
 Every option is inserted as a separate row and is stored as plain text, so it should be straightforward.
 
 Let's say you were using the following config:
+```toml
+  [[modules.mod_muc_light.config_schema]]
+    field = "roomname"
+    value = "The room"
 
-```
-{config_schema, [
-                 "roomname",
-                 "subject",
-                 "background",
-                 "notification_sound"
-                ]},
-{default_config, [
-                  {"roomname", "The room"},
-                  {"subject", "Chit-chat"}
-                 ]}
+  [[modules.mod_muc_light.config_schema]]
+    field = "subject"
+    value = "Chit-chat"
+
+  [[modules.mod_muc_light.config_schema]]
+    field = "background"
+    value = ""
+
+  [[modules.mod_muc_light.config_schema]]
+    field = "notification_sound"
+    value = ""
 ```
 
 Your client application has created some rooms without the `background` option by mistake.
